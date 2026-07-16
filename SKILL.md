@@ -35,10 +35,11 @@ Also read `connect-form-reference.md` for section names, character limits, and f
 
 ## Step 2: Gather Inputs
 
-Ask the user two questions only:
+Ask the user three questions only:
 
 1. **Review period:** "What period does this Connect cover?" (e.g., "H2 FY26", "November 2025 to May 2026")
-2. **Supplemental notes:** "Any accomplishments, context, or notes to include beyond the work logs?" (optional — they can skip)
+2. **Org/role changes:** "Have your role or org responsibilities changed since last cycle? Any programs, tracking systems, or teams you no longer own?" This determines which measures are still valid for Section 3 goals.
+3. **Supplemental notes:** "Any accomplishments, context, or notes to include beyond the work logs?" (optional — they can skip)
 
 Do not ask about file paths. The skill discovers logs automatically.
 
@@ -68,7 +69,17 @@ Read `section-4-behaviors.md` and generate the behaviors section grounded in spe
 
 ## Step 9: Assemble, Count, and Analyze
 
-Read `templates/output-template.md` and assemble the full draft. Count characters per section. Include the gap analysis.
+Read `templates/output-template.md` and assemble the full draft.
+
+**Character counting rules:**
+- Count raw (LF newlines) using Python or a script — do not eyeball
+- The Connect form uses Windows CRLF line endings. Add 1 char per newline to estimate the form count.
+- Flag any section over 90% of its limit before reporting complete (e.g., Section 1 over 5,400, Section 2 over 900, any goal over 1,080, Section 4 over 900)
+- If Section 1 is over 5,800 raw chars, convert labeled What/How/Impact sub-sections to prose paragraphs — do not cut proof points
+
+**Each section should have been counted during generation (Steps 5-8). Step 9 is a final sanity check, not the first count.**
+
+Include the gap analysis.
 
 ## Step 10: Refinement Loop
 

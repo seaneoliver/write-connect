@@ -42,9 +42,21 @@ How Impact Was Delivered
 - Voice: short sentences, no em dashes, no hedging, contractions throughout
 - Make it easy for your manager to advocate for you — if something isn't clearly articulated, it's harder to represent later
 
+## Character Budget Warning
+
+The 6,000 char limit includes "How Impact Was Delivered." Budget ~700 chars for that closing paragraph, leaving ~5,300 for goal sub-sections.
+
+**What/How/Impact label overhead:** Each initiative using explicit "What:", "How:", "Impact:" label prefixes adds ~19 chars of structural overhead. At 5+ initiatives, that's ~100-200 chars. When total is approaching 6,000:
+- Drop the "What:", "How:", "Impact:" label prefixes
+- Merge into flowing prose paragraphs: outcome first sentence, execution second, evidence third
+- Keep all proof points (numbers, quotes, results) — cut the labels, not the substance
+- This alone recovers 150-200 chars without losing any senior-IC evidence
+
+Never cut a non-negotiable proof point to save a label. Cut the label.
+
 ## Self-Check Before Finalizing
 
-- Count characters including spaces
+- **Count characters now, not at assembly.** Run a char count after generating this section. If over 5,800 raw (LF), convert labeled sub-sections to prose before moving to Section 2.
 - Ensure all three goal buckets are represented
 - Ensure security, quality, and AI are each addressed at least once
 - Ensure at least one instance of senior IC framing (solution + problem, not just problem)

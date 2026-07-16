@@ -8,6 +8,17 @@ Draft your Microsoft Connect performance review from weekly work logs — not fr
 
 `write-connect` reads your work logs for the review period, extracts completed work, and generates a full four-section Connect draft in one pass. It applies the What/How/Impact structure, maps work to your defined goal buckets, counts characters per section against form limits, and flags gaps before you submit. The output is paste-ready into the Connect form with no reformatting needed.
 
+### What you get
+
+A single Markdown draft containing all four Connect sections, each already within its character limit:
+
+1. **Results** (6,000 chars) — What/How/Impact per initiative, grouped by goal bucket
+2. **Setbacks** (1,000 chars) — Name/Changed/Result structure
+3. **Goals** (1,200 chars each) — percentage-weighted, with validated measures
+4. **Culture Behaviors** (1,000 chars) — grounded in specific examples from your logs
+
+Plus a **gap analysis** flagging anything thin (missing security/quality/AI coverage, sections near their limit) so you know what to shore up before submitting.
+
 ---
 
 ## Prerequisites
@@ -24,7 +35,7 @@ Draft your Microsoft Connect performance review from weekly work logs — not fr
 
 1. Clone or copy this skill folder into your Claude skills directory:
    ```bash
-   git clone https://github.com/your-org/write-connect ~/.claude/skills/write-connect
+   git clone https://github.com/seaneoliver/write-connect ~/.claude/skills/write-connect
    ```
 2. Register the skill by adding it to your `.claude/settings.json` skills path (or place it directly in `~/.claude/skills/`).
 3. Fill in `USER-CONFIG.md` with your personal file paths and goal names (see [Configure it for yourself](#configure-it-for-yourself)).
@@ -65,7 +76,7 @@ See `USER-CONFIG.md` for the full fill-in-the-blank template.
 
 1. Open a Claude Code session in your vault or project directory.
 2. Type `/write-connect H2 FY26` (replace with your review period).
-3. Answer the two setup questions (review period confirmation, any supplemental notes), then let the skill generate the full draft.
+3. Answer the three setup questions (review period, any org/role changes since last cycle, and any supplemental notes), then let the skill generate the full draft.
 
 ---
 
