@@ -7,7 +7,7 @@ Use What/How/Impact structure for every initiative, grouped by Connect goal buck
 For each major initiative within a goal bucket:
 - **What:** What you delivered or changed. One sentence.
 - **How:** How you worked, who you partnered with, what decisions you made. One sentence.
-- **Impact:** What changed and why it mattered. Anchor with metrics or credible proxies. One sentence.
+- **Impact:** What changed and why it mattered. Anchor with numbers from the logs, or a credible proxy the logs support. One sentence.
 
 ## Format
 
@@ -25,6 +25,9 @@ Impact: [What changed - metric or credible proxy]
 Goal #3. [goal_3_title from USER-CONFIG]
 [Same What/How/Impact per initiative]
 
+Goal #4. [goal_4_title from USER-CONFIG, only if set]
+[Same What/How/Impact per initiative]
+
 How Impact Was Delivered
 [3-4 culture behaviors mapped to specific examples - embedded naturally, not labeled generically]
 ```
@@ -34,7 +37,7 @@ How Impact Was Delivered
 - Group work into themes, not a chronological log dump
 - Lead each initiative with What (the deliverable), then How (execution and partnerships), then Impact (outcome with evidence)
 - Impact must answer: What changed because you were here?
-- Use numbers where possible, words where necessary - hard metrics preferred, credible proxies acceptable
+- Use numbers where the logs have them, words where they don't. Never add a number the logs don't contain (see the Traceability Gate in `extraction-rules.md`)
 - Demonstrate senior IC behaviors where present: brought solution + problem, not just problem identification
 - "How Impact Was Delivered" maps work to culture behaviors - do not use generic label sentences ("I demonstrated growth mindset by...")
 - Must include at least one reference each to security, quality, and AI
@@ -49,7 +52,7 @@ The 6,000 char limit includes "How Impact Was Delivered." Budget ~700 chars for 
 **What/How/Impact label overhead:** Each initiative using explicit "What:", "How:", "Impact:" label prefixes adds ~19 chars of structural overhead. At 5+ initiatives, that's ~100-200 chars. When total is approaching 6,000:
 - Drop the "What:", "How:", "Impact:" label prefixes
 - Merge into flowing prose paragraphs: outcome first sentence, execution second, evidence third
-- Keep all proof points (numbers, quotes, results) - cut the labels, not the substance
+- Keep all proof points (numbers, quotes, results from the logs) - cut the labels, not the substance
 - This alone recovers 150-200 chars without losing any senior-IC evidence
 
 Never cut a non-negotiable proof point to save a label. Cut the label.
@@ -57,6 +60,6 @@ Never cut a non-negotiable proof point to save a label. Cut the label.
 ## Self-Check Before Finalizing
 
 - **Count characters now, not at assembly.** Run a char count after generating this section. If over 5,800 raw (LF), convert labeled sub-sections to prose before moving to Section 2.
-- Ensure all three goal buckets are represented
+- Ensure every configured goal bucket is represented (3, or 4 when `goal_4_title` is set)
 - Ensure security, quality, and AI are each addressed at least once
 - Ensure at least one instance of senior IC framing (solution + problem, not just problem)

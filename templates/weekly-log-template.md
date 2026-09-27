@@ -47,6 +47,9 @@ Aim for 2+ headlines a week. Weeks with fewer get flagged as coverage gaps.
 Test each headline: what changed, who benefited, why it mattered?
   Weak:   "Attended KT sessions"
   Strong: "De-risked the report transition"
+If a week straddles the start or end of a review period, add the date
+to the headline, e.g. "Shipped the intake form (2026-10-01)", so the
+item lands in the right period.
 -->
 
 - **[Outcome headline: what changed]**

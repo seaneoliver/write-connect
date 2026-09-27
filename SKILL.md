@@ -26,11 +26,15 @@ Read `USER-CONFIG.md` (in this skill's folder) and hold all values throughout ge
 
 Paths in USER-CONFIG are relative to the directory Claude Code was launched from, not the skill folder.
 
-Then read the files specified in USER-CONFIG. Any path left blank, or pointing to a file that doesn't exist, is skipped: note it in the gap analysis and keep going. Never stop the run for a missing optional file.
-1. The path in `voice_notes_path` - voice and tone rules (optional)
-2. The path in `past_review_path` - most recent completed Connect (structure, language, what landed well). Optional: first-time users won't have one
-3. The path in `role_summary_path` - role framing at your level
-4. The path in `goals_path` - current goals and priorities
+Then read the files specified in USER-CONFIG.
+
+**Required.** If either of these is blank, missing or unreadable, stop before drafting and tell the user which setting and path failed. A draft without them would invent your role and goals.
+1. The path in `role_summary_path` - role framing at your level
+2. The path in `goals_path` - current goals and priorities
+
+**Optional.** If one of these is blank or missing, skip it, note it in the gap analysis, and keep going.
+3. The path in `voice_notes_path` - voice and tone rules
+4. The path in `past_review_path` - most recent completed Connect (structure, language, what landed well). First-time users won't have one
 
 Also read `connect-form-reference.md` for section names, character limits, and form guidance.
 
@@ -83,8 +87,9 @@ Read `templates/output-template.md` and assemble the full draft.
   ```
   The first number is the raw count, the second is the estimated form count (CRLF).
 - The Connect form uses Windows CRLF line endings. Add 1 char per newline to estimate the form count.
-- Flag any section over 90% of its limit before reporting complete (e.g., Section 1 over 5,400, Section 2 over 900, any goal over 1,080, Section 4 over 900)
-- If Section 1 is over 5,800 raw chars, convert labeled What/How/Impact sub-sections to prose paragraphs - do not cut proof points
+- **Limits are hard.** A section fits only when its form count is at or under its limit. Before saving, revise every section that doesn't fit, then count it again. Never save a draft with a section over its limit.
+- To shorten Section 1, first convert labeled What/How/Impact sub-sections to prose paragraphs, then merge or cut the weakest initiatives. Cut labels and filler before proof points.
+- Flag any section over 90% of its limit in the gap analysis, so the user knows edits there have little room (e.g., Section 1 over 5,400, Section 2 over 900, any goal over 1,080, Section 4 over 900)
 
 **Each section should have been counted during generation (Steps 5-8). Step 9 is a final sanity check, not the first count.**
 

@@ -11,15 +11,25 @@ Configure your log location in `USER-CONFIG.md`:
 - `log_pattern` - a glob pattern for log files (e.g., `* Work.md`). Use `*` as the wildcard. Do not write `YYYY-MM-DD` here: Glob treats it as literal text and matches nothing.
 
 Use Glob to find all matching files: `{log_folder}/{log_pattern}`
-Read the date from each filename (the first `YYYY-MM-DD` in the name). If a filename has no date, use the date in the file's first heading.
-Filter to files whose date falls within the review period.
-Read each file.
+Read the date from each filename (the first `YYYY-MM-DD` in the name). If a filename has no date, use the date in the file's first heading. That date is the start of the log's week.
+Keep every file whose week (its date plus 6 days) overlaps the review period, and read each one.
+
+**Boundary weeks.** When a week starts before the period or ends after it, keep only the items dated inside the period:
+- A `## Completed` item written with a date, such as `(2026-10-01)`, uses that date.
+- An undated item takes the date of the daily note that mentions the same work.
+- An item you can't date is kept, and the gap analysis lists it under "Check these dates".
+
+**Missing weeks.** List every week in the review period that has no log file. They go in the gap analysis as coverage gaps.
 
 If no files match, stop and tell the user the exact pattern you searched, the folder, and how many files that folder contains. Do not generate a draft from zero logs.
 
+If files match but none of them has a single item under `## Completed` (or an alias below) inside the review period, stop and tell the user which files you read and that none had completed work to draft from. Do not generate a draft from zero evidence.
+
 ## Section parsing
 
-Match headings by their text, ignoring a trailing colon (`## What I'm Working on:` counts).
+Match headings by their text, ignoring case and a trailing colon (`## What I'm Working on:` counts).
+
+These alternate headings count as `## Completed`: `## Done`, `## Accomplishments`, `## Wins`, `## Shipped`, `## Completed this week`. Say in the gap analysis which files used an alternate heading.
 
 - `## Completed` - PRIMARY extraction target. Each top-level bullet is one accomplishment, ideally written as an outcome headline. Nested sub-bullets are the evidence for their parent bullet: read them together, never as separate accomplishments.
 - `## What I'm Working on` - workstream headings. Use for goal bucket mapping only, not for content extraction.
@@ -31,4 +41,4 @@ Match headings by their text, ignoring a trailing colon (`## What I'm Working on
 
 ## Coverage flagging
 
-Note any weeks where `## Completed` is missing, empty, or has fewer than 2 top-level bullets (sub-bullets don't count). List these at the end as potential coverage gaps.
+Note any weeks where `## Completed` is missing, empty, or has fewer than 2 top-level bullets (sub-bullets don't count), plus every week with no log file at all. List each by its week date (`YYYY-MM-DD`) in the gap analysis as a coverage gap.
