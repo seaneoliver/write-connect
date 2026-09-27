@@ -124,12 +124,19 @@ Cases: `normal`, `four-goal`, `paste`, `missing-goals`, `zero-evidence`. What ea
 
 ---
 
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+---
+
 ## File structure
 
 ```
 write-connect/
 ├── SKILL.md                        # Entry point - orchestrates all steps
 ├── README.md                       # This file
+├── LICENSE                         # MIT
 ├── USER-CONFIG.example.md          # Config template: copy to USER-CONFIG.md (gitignored) and fill in
 ├── hosts/                          # One file per AI tool: capabilities and tool names
 ├── agents/openai.yaml              # Codex display metadata
