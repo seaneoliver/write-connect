@@ -87,7 +87,9 @@ def main():
     drafts = sorted((project / "Drafts").glob("*.md")) if (project / "Drafts").exists() else []
 
     if host:
-        check(f"hosts/{host}.md" in log, f"run log does not name hosts/{host}.md")
+        named = f"hosts/{host}.md"
+        in_draft = any(named in d.read_text() for d in drafts)
+        check(named in log or in_draft, f"neither the run log nor the draft names {named}")
 
     if case in ("missing-goals", "zero-evidence"):
         check(not drafts, f"{case}: expected no draft, found {[d.name for d in drafts]}")

@@ -7,8 +7,6 @@ description: |
   any of the four Connect sections (results, setbacks, goals, culture behaviors).
   Reads all weekly work logs for the review period automatically - just provide
   the period and any supplemental notes.
-argument-hint: "[review period, e.g. 'H2 FY26' or 'November 2025 to May 2026']"
-user-invocable: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash(python3 *)
 ---
 
@@ -24,7 +22,9 @@ to Connect goal buckets, counts characters per section, and flags gaps.
 
 Read `USER-CONFIG.md` (in this skill's folder) and hold all values throughout generation. If it doesn't exist, stop and tell the user: "Copy `USER-CONFIG.example.md` to `USER-CONFIG.md` in the skill folder and fill it in."
 
-Paths in USER-CONFIG are relative to the directory Claude Code was launched from, not the skill folder.
+**Select the host file.** Read the `host` value in USER-CONFIG: `claude-code`, `copilot`, `codex` or `cowork`. If it is blank or missing, use `claude-code`. Read `hosts/<host>.md` from this skill's folder and start your first message with "Using hosts/<host>.md". Also record it in the draft header (see `templates/output-template.md`). Every action in the steps below ("list the files matching", "read", "write", "run a command", "ask the user and wait", "count characters") uses the tool that host file maps it to. If the host file doesn't exist, stop and tell the user the valid `host` values.
+
+Paths in USER-CONFIG are relative to the user's working folder as your host file defines it, not the skill folder.
 
 Then read the files specified in USER-CONFIG.
 
@@ -40,7 +40,7 @@ Also read `connect-form-reference.md` for section names, character limits, and f
 
 ## Step 2: Gather Inputs
 
-If the skill was invoked with arguments (`$ARGUMENTS`), treat them as the review period and skip question 1.
+If the user's request already names a review period (for example, text after the skill name), use it and skip question 1.
 
 Ask the user these questions in a single message, not one at a time:
 
@@ -52,7 +52,7 @@ Do not ask about file paths. The skill discovers logs automatically.
 
 ## Step 3: Discover and Read Work Logs
 
-Read `log-parsing-rules.md` and apply it to discover and parse all work logs within the review period.
+Read `log-parsing-rules.md` and apply it to discover and parse all work logs within the review period. If there are no logs, it tells you how to work from pasted notes instead.
 
 ## Step 4: Extract and Translate
 
@@ -79,13 +79,7 @@ Read `section-4-behaviors.md` and generate the behaviors section grounded in spe
 Read `templates/output-template.md` and assemble the full draft.
 
 **Character counting rules:**
-- Count raw (LF newlines) with Python, never by eye. Pass each section on stdin (no temp files, nothing left in the user's folder), one section per command:
-  ```bash
-  python3 -c "import sys; t=sys.stdin.read().rstrip('\n'); print(len(t), len(t)+t.count('\n'))" <<'EOF'
-  [section text]
-  EOF
-  ```
-  The first number is the raw count, the second is the estimated form count (CRLF).
+- Count characters with the character counter in your host file, never by eye. Count each section separately, and leave no temp files in the user's folder. The counter reports the raw count (LF newlines) and the form count.
 - The Connect form uses Windows CRLF line endings. Add 1 char per newline to estimate the form count.
 - **Limits are hard.** A section fits only when its form count is at or under its limit. Before saving, revise every section that doesn't fit, then count it again. Never save a draft with a section over its limit.
 - To shorten Section 1, first convert labeled What/How/Impact sub-sections to prose paragraphs, then merge or cut the weakest initiatives. Cut labels and filler before proof points.

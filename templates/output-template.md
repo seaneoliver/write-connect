@@ -6,6 +6,7 @@
 # Connect Review Draft: [Review Period]
 Generated: [date]
 Source logs: [list of log files read, date range]
+Host file: [hosts/<host>.md used for this run]
 
 ---
 
@@ -70,6 +71,7 @@ Character count: [X] / 1,000 (form count, must be at or under the limit)
 
 ### Missing inputs
 [Any USER-CONFIG file that was blank or not found and was skipped, e.g. no past review]
+[If the draft came from pasted notes: "Input: pasted notes, not weekly logs."]
 
 ### Missing requirements
 [Flag if security, quality, or AI are not addressed in Section 1]

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Write Connect"
+  short_description: "Draft a Microsoft Connect review from weekly work logs"

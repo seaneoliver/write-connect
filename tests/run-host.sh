@@ -30,6 +30,10 @@ esac
 mkdir -p "$skill_dir"
 rsync -a --exclude .git --exclude tests --exclude fixtures "$repo/" "$skill_dir/"
 cp "$config" "$skill_dir/USER-CONFIG.md"
+# Claude Code keeps a blank host to prove the default (existing installs have no host field).
+if [ "$host" != claude-code ]; then
+  printf '\n## Host\n\n```yaml\nhost: "%s"\n```\n' "$host" >> "$skill_dir/USER-CONFIG.md"
+fi
 
 # Fixtures go to fixed paths under the project root, whatever the host.
 cp -R "$repo/fixtures/Logs" "$repo/fixtures/Logs-empty" "$scratch/"
