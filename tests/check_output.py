@@ -6,6 +6,7 @@ Usage: check_output.py <case> <project-dir> <run-log> [--host HOST]
 <project-dir> is the scratch project the run used. The draft is the one .md
 file under <project-dir>/Drafts/. Exits non-zero and prints each failed check.
 """
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -75,16 +76,16 @@ def unsupported_numbers(text, allowed):
 
 
 def main():
-    args = sys.argv[1:]
-    host = None
-    if "--host" in args:
-        i = args.index("--host")
-        host = args[i + 1]
-        del args[i:i + 2]
-    case, project, runlog = args
+    parser = argparse.ArgumentParser(description="Check a write-connect test run.")
+    parser.add_argument("case")
+    parser.add_argument("project")
+    parser.add_argument("runlog")
+    parser.add_argument("--host")
+    args = parser.parse_args()
+    case, project, runlog, host = args.case, args.project, args.runlog, args.host
     project = Path(project)
     log = Path(runlog).read_text(errors="replace") if Path(runlog).exists() else ""
-    drafts = sorted((project / "Drafts").glob("*.md")) if (project / "Drafts").exists() else []
+    drafts = sorted((project / "Drafts").glob("*.md"))
 
     if host:
         named = f"hosts/{host}.md"

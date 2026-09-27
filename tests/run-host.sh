@@ -29,9 +29,10 @@ esac
 # Install the skill as a user would: no git history, tests or fixtures.
 mkdir -p "$skill_dir"
 rsync -a --exclude .git --exclude tests --exclude fixtures "$repo/" "$skill_dir/"
-cp "$config" "$skill_dir/USER-CONFIG.md"
 # Claude Code keeps a blank host to prove the default (existing installs have no host field).
-if [ "$host" != claude-code ]; then
+if [ "$host" = claude-code ]; then
+  cp "$config" "$skill_dir/USER-CONFIG.md"
+else
   sed "s/^host: \"\"/host: \"$host\"/" "$config" > "$skill_dir/USER-CONFIG.md"
 fi
 
@@ -54,12 +55,18 @@ log="$scratch/run.log"
 if [ "${AUTO:-}" = 1 ]; then
   prompt="Draft my Microsoft Connect performance review for $period from my weekly work logs.
 $prompt"
+  invoke=""
+else
+  case "$host" in
+    codex) invoke="\$write-connect $period
+" ;;
+    *)     invoke="/write-connect $period
+" ;;
+  esac
 fi
 cd "$scratch" || exit 2
 case "$host" in
   claude-code)
-    [ "${AUTO:-}" = 1 ] && invoke="" || invoke="/write-connect $period
-"
     claude -p "$invoke$prompt" --permission-mode acceptEdits \
       --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python3 *)" --max-turns 60 \
       --verbose --output-format stream-json > "$log" 2>&1
@@ -67,11 +74,9 @@ case "$host" in
   codex)
     codex_bin=${CODEX_BIN:-/Applications/ChatGPT.app/Contents/Resources/codex}
     "$codex_bin" exec --sandbox workspace-write --skip-git-repo-check \
-      "$( [ "${AUTO:-}" = 1 ] || printf '%s\n' "\$write-connect $period" )$prompt" > "$log" 2>&1
+      "$invoke$prompt" > "$log" 2>&1
     ;;
   copilot)
-    [ "${AUTO:-}" = 1 ] && invoke="" || invoke="/write-connect $period
-"
     copilot -p "$invoke$prompt" --allow-tool 'shell(python3:*)' --allow-tool write --no-ask-user > "$log" 2>&1
     ;;
 esac
