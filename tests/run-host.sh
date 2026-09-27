@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run write-connect headless on one host against one fixture case, then check the output.
 #
-# Usage: sh tests/run-host.sh <host> <case> [--expect-host]
+# Usage: [AUTO=1] sh tests/run-host.sh <host> <case> [--expect-host]
 #   host: claude-code | codex | copilot
 #   case: normal | four-goal | paste | missing-goals | zero-evidence
 #   --expect-host: also require the run to name the host file it loaded
@@ -32,7 +32,7 @@ rsync -a --exclude .git --exclude tests --exclude fixtures "$repo/" "$skill_dir/
 cp "$config" "$skill_dir/USER-CONFIG.md"
 # Claude Code keeps a blank host to prove the default (existing installs have no host field).
 if [ "$host" != claude-code ]; then
-  printf '\n## Host\n\n```yaml\nhost: "%s"\n```\n' "$host" >> "$skill_dir/USER-CONFIG.md"
+  sed "s/^host: \"\"/host: \"$host\"/" "$config" > "$skill_dir/USER-CONFIG.md"
 fi
 
 # Fixtures go to fixed paths under the project root, whatever the host.
@@ -50,22 +50,29 @@ $(cat "$repo/fixtures/paste-notes.md")"
 fi
 
 log="$scratch/run.log"
+# AUTO=1 tests automatic invocation: the prompt describes the task but never names the skill.
+if [ "${AUTO:-}" = 1 ]; then
+  prompt="Draft my Microsoft Connect performance review for $period from my weekly work logs.
+$prompt"
+fi
 cd "$scratch" || exit 2
 case "$host" in
   claude-code)
-    claude -p "/write-connect $period
-$prompt" --permission-mode acceptEdits \
-      --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python3 *)" --max-turns 60 > "$log" 2>&1
+    [ "${AUTO:-}" = 1 ] && invoke="" || invoke="/write-connect $period
+"
+    claude -p "$invoke$prompt" --permission-mode acceptEdits \
+      --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python3 *)" --max-turns 60 \
+      --verbose --output-format stream-json > "$log" 2>&1
     ;;
   codex)
     codex_bin=${CODEX_BIN:-/Applications/ChatGPT.app/Contents/Resources/codex}
     "$codex_bin" exec --sandbox workspace-write --skip-git-repo-check \
-      "\$write-connect $period
-$prompt" > "$log" 2>&1
+      "$( [ "${AUTO:-}" = 1 ] || printf '%s\n' "\$write-connect $period" )$prompt" > "$log" 2>&1
     ;;
   copilot)
-    copilot -p "/write-connect $period
-$prompt" --allow-tool 'shell(python3:*)' --allow-tool write --no-ask-user > "$log" 2>&1
+    [ "${AUTO:-}" = 1 ] && invoke="" || invoke="/write-connect $period
+"
+    copilot -p "$invoke$prompt" --allow-tool 'shell(python3:*)' --allow-tool write --no-ask-user > "$log" 2>&1
     ;;
 esac
 

@@ -25,13 +25,13 @@ Plus a **gap analysis** flagging anything thin (missing security/quality/AI cove
 
 write-connect is one skill folder that several AI tools can load. Each tool gets a short file in `hosts/` that tells the skill which of its tools to use.
 
-| Host | Status | Last test |
-|---|---|---|
-| Claude Code | not yet run | |
-| GitHub Copilot CLI | not yet run | |
-| GitHub Copilot in VS Code (agent mode) | not yet run | |
-| OpenAI Codex CLI | not yet run | |
-| Claude Cowork | not yet run | |
+| Host | Status | Last test | Invocation | Notes |
+|---|---|---|---|---|
+| Claude Code 2.1.283 | Supported | 2026-09-27, macOS 26.6.2 | explicit | All 5 test cases pass |
+| GitHub Copilot CLI 1.0.88 | Supported | 2026-09-27, macOS 26.6.2 | explicit and automatic | All 5 test cases pass. About 50 Copilot AI credits per run |
+| OpenAI Codex CLI 0.153.1 | Experimental | 2026-09-27, macOS 26.6.2 | explicit | 3 of 5 cases pass. The four-goal and paste runs stopped at the ChatGPT usage limit before saving |
+| GitHub Copilot in VS Code (agent mode) | Experimental | not yet run | | Manual guide: `tests/copilot-vscode-manual.md` |
+| Claude Cowork | Experimental | not yet run | | Manual guide: `tests/cowork-manual.md` |
 
 A host is **Supported** only after it passes the full test set in `tests/` on the date shown. Anything else is **Experimental**: it may work, but nobody has proven it yet. Tests so far ran on macOS only. Windows is untested. Headless test runs can't exercise the interactive questions or the refine step.
 

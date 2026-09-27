@@ -2,9 +2,19 @@
 
 This is a template. Copy it to `USER-CONFIG.md` in the same folder and fill that in (`cp USER-CONFIG.example.md USER-CONFIG.md`). Your copy is gitignored, so `git pull` updates never overwrite it.
 
-All paths are relative to the folder you open Claude Code in (usually your notes or vault root), not this skill folder.
+All paths are relative to your working folder (usually your notes or vault root), not this skill folder. Your host file in `hosts/` says exactly which folder that is.
 
 Fill in each field before your first run. The skill reads this file in Step 1 to resolve all personal paths and labels.
+
+---
+
+## Host
+
+```yaml
+# Which AI tool runs this skill: claude-code, copilot, codex or cowork.
+# Blank means claude-code. Set it on any other host.
+host: ""
+```
 
 ---
 
@@ -14,7 +24,7 @@ Fill in each field before your first run. The skill reads this file in Step 1 to
 # Folder where your weekly work logs live
 log_folder: "NoLogs/"
 
-# Glob pattern for log files. Use * as the wildcard, not YYYY-MM-DD.
+# Filename pattern for log files. Use * as the wildcard, not YYYY-MM-DD.
 # Each filename must contain its date as YYYY-MM-DD (e.g. "2026-09-21 Work.md")
 # Examples: "* Work.md" or "*-work-log.md"
 # Log format: see templates/weekly-log-template.md

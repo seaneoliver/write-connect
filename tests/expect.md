@@ -34,3 +34,11 @@ Test review period: **2026-10-01 to 2026-11-13**. All fixtures are fictional.
 ## Host notes
 
 Facts confirmed or refuted while running each host are recorded here.
+
+Recorded 2026-09-27 on macOS:
+
+- **Claude Code:** `claude -p` prints only the final message, so the runner saves the full transcript (`--output-format stream-json`) to see the "Using hosts/..." line on runs that stop before drafting.
+- **Copilot CLI:** project skills in `.github/skills` are discovered, and `/write-connect` and a plain request both start the skill. `$ARGUMENTS` isn't needed: the period is read from the request. Headless runs need `--allow-tool 'shell(python3:*)' --allow-tool write`. The model sometimes tries to write section text to temp files first; those shell writes are denied and it falls back to stdin. About 50 AI credits per run.
+- **Codex CLI:** the CLI bundled in ChatGPT.app works with its saved sign-in. Skills in `.agents/skills` are discovered in `codex exec`, and `$write-connect` starts the skill. The trimmed frontmatter (`name`, `description`, `allowed-tools`) loads without a validation error. With many user-level skills installed, Codex warns it exceeded its skills context budget and drops skill descriptions, which makes automatic invocation unreliable on such machines.
+- **Cowork and Copilot in VS Code:** not yet run.
+
