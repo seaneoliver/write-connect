@@ -22,7 +22,7 @@ Test review period: **2026-10-01 to 2026-11-13**. All fixtures are fictional.
 ## `paste`
 
 - The log folder is empty. The prompt supplies `fixtures/paste-notes.md` as pasted notes.
-- Project Curlew appears in Results, the gap analysis says the input was pasted notes, and nothing from the fixture logs (Osprey, Wren, Plover, Sandpiper) appears in Results, Setbacks or Behaviors. Goals may name them because `GOALS.md` does.
+- Project Curlew appears in Results, the gap analysis says the input was pasted notes, and nothing from the fixture logs (Osprey, Wren, Plover, Sandpiper) appears in Results or Setbacks outside a `[placeholder]`. Goals and Behaviors look forward and may name them, because `GOALS.md` does.
 
 ## `missing-goals`
 

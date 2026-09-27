@@ -183,7 +183,8 @@ def main():
     if case == "paste":
         check("Curlew" in sec.get("1", ""), "pasted item (Curlew) missing from Section 1")
         check(re.search(r"past(e|ed)", gap, re.I) is not None, "gap analysis does not say the input was pasted")
-        past_work = "\n".join(sec.get(k, "") for k in ("1", "2", "4"))  # goals may cite GOALS.md projects
+        # Results and Setbacks look back. Goals and Behaviors look forward and may name GOALS.md projects.
+        past_work = "\n".join(sec.get(k, "") for k in ("1", "2"))
         past_work = re.sub(r"\[[^\]]*\]", " ", past_work)  # "[add details for Project X]" prompts are fine
         for name in ("Osprey", "Wren", "Plover", "Sandpiper", "Heron", "Kestrel"):
             check(name not in past_work, f"paste case drew on the fixture logs: {name}")
