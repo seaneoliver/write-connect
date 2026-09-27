@@ -10,11 +10,12 @@ Apply this gate before including any bullet:
 
 ## Traceability Gate
 
-Apply this gate to every claim before it goes into the draft:
+Apply this gate to every claim about past work (Results, Setbacks, Behaviors and the gap analysis) before it goes into the draft:
 
-- Every fact, number, result and name in the draft must come from a line in the logs or pasted notes. Framing (why it mattered, who benefited) may be inferred. Facts may not.
+- Every fact, number, result and name must come from a line in the logs, the pasted notes, or the supplemental notes the user gave in Step 2. Framing (why it mattered, who benefited) may be inferred. Facts may not.
 - Never add a metric, a percentage, a count or an outcome the source doesn't state. "Rolled out to 3 teams" stays 3 teams. A result that isn't written down isn't in the draft.
 - When an item would be stronger with a number the source doesn't have, write `[number from your log]` in the draft and list it under "Evidence to add" in the gap analysis.
+- Section 3 goal weights and measure targets are forward-looking proposals, not claims about past work, so this gate doesn't apply to them. `section-3-goals.md` governs them. A goal may still only cite past results the sources state.
 
 ## Impact Categories
 

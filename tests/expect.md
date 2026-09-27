@@ -8,7 +8,8 @@ Test review period: **2026-10-01 to 2026-11-13**. All fixtures are fictional.
 
 - Exactly one draft is saved under `Drafts/`.
 - Every section fits its limit as the Connect form counts it (characters plus one per line break): Results 6,000, Setbacks 1,000, each goal 1,200, Behaviors 1,000.
-- Results and Setbacks contain no number that doesn't appear somewhere in `fixtures/`.
+- Results, Setbacks and Behaviors contain no number that doesn't appear in an in-period fixture (dates don't count). Goal weights and targets are exempt: they are forward-looking.
+- The host CLI exits 0 and the log has assistant output.
 
 ## `normal` and `four-goal`
 
@@ -21,15 +22,15 @@ Test review period: **2026-10-01 to 2026-11-13**. All fixtures are fictional.
 ## `paste`
 
 - The log folder is empty. The prompt supplies `fixtures/paste-notes.md` as pasted notes.
-- Project Curlew appears in Results, and the gap analysis says the input was pasted notes.
+- Project Curlew appears in Results, the gap analysis says the input was pasted notes, and nothing from the fixture logs (Osprey, Wren, Plover, Sandpiper) appears in Results, Setbacks or Behaviors. Goals may name them because `GOALS.md` does.
 
 ## `missing-goals`
 
-- `goals_path` points to a file that doesn't exist. The run stops before drafting, names `missing-GOALS.md`, and saves nothing.
+- `goals_path` points to a file that doesn't exist. The run stops before drafting, the model's own reply names `missing-GOALS.md` (not just an echoed config), and it saves nothing.
 
 ## `zero-evidence`
 
-- Every `## Completed` section is empty. The run stops with a clear message and saves nothing.
+- Every `## Completed` section is empty. The model's reply says it stopped, and it saves nothing.
 
 ## Host notes
 

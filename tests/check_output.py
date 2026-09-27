@@ -7,6 +7,7 @@ Usage: check_output.py <case> <project-dir> <run-log> [--host HOST]
 file under <project-dir>/Drafts/. Exits non-zero and prints each failed check.
 """
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -62,11 +63,44 @@ def sections(draft):
     return out
 
 
+OUT_OF_PERIOD_LOG = "2026-09-14 Work.md"
+
+
 def allowed_numbers():
+    """Numbers a draft may use: any in an in-period fixture, not counting dates."""
     nums = set()
     for p in FIXTURES.rglob("*.md"):
-        nums.update(re.findall(r"\d+", p.read_text()))
+        if p.name == OUT_OF_PERIOD_LOG:
+            continue
+        text = re.sub(r"\d{4}-\d{2}-\d{2}", " ", p.read_text())
+        nums.update(re.findall(r"\d+", text))
     return nums
+
+
+def assistant_text(log):
+    """What the model said, without tool output such as an echoed config file.
+
+    Claude Code logs are stream-json: keep assistant text blocks and the final result.
+    Other hosts log plain transcripts: drop YAML-style config lines they echo back.
+    """
+    said = []
+    json_lines = 0  # nonzero means a structured (stream-json) transcript
+    for line in log.splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        json_lines += 1
+        if event.get("type") == "assistant":
+            for block in event.get("message", {}).get("content", []):
+                if block.get("type") == "text":
+                    said.append(block.get("text", ""))
+        elif event.get("type") == "result":
+            said.append(event.get("result", "") or "")
+    if json_lines:
+        return "\n".join(said), True
+    config_line = re.compile(r'^\W*[a-z][a-z0-9_]*:\s*"')
+    return "\n".join(l for l in log.splitlines() if not config_line.match(l)), False
 
 
 def unsupported_numbers(text, allowed):
@@ -87,15 +121,25 @@ def main():
     log = Path(runlog).read_text(errors="replace") if Path(runlog).exists() else ""
     drafts = sorted((project / "Drafts").glob("*.md"))
 
+    said, structured = assistant_text(log)
+    check(said.strip() != "", "the run log has no assistant output (crashed or empty run)")
+
     if host:
         named = f"hosts/{host}.md"
-        in_draft = any(named in d.read_text() for d in drafts)
-        check(named in log or in_draft, f"neither the run log nor the draft names {named}")
+        announced = f"Using {named}" in said
+        in_header = any(f"Host file: {named}" in d.read_text() for d in drafts)
+        read_it = f"skills/write-connect/{named}" in log  # the transcript shows the host file being read
+        check(announced or in_header or read_it, f"no sign the run used {named}")
 
     if case in ("missing-goals", "zero-evidence"):
         check(not drafts, f"{case}: expected no draft, found {[d.name for d in drafts]}")
+        if structured:  # plain-text transcripts also contain echoed skill files, so only check isolated model text
+            check("## Section 1" not in said, f"{case}: the model wrote draft sections into the chat")
         if case == "missing-goals":
-            check("missing-GOALS.md" in log, "missing-goals: run log does not name missing-GOALS.md")
+            check("missing-GOALS.md" in said, "missing-goals: the model's stop message does not name missing-GOALS.md")
+        else:
+            stopped = re.search(r"stop|no completed work|nothing to draft|did(?:n't| not) (?:write|draft|save)", said, re.I)
+            check(stopped is not None, "zero-evidence: the model's reply does not say it stopped")
         return
 
     check(len(drafts) == 1, f"expected exactly one draft in Drafts/, found {len(drafts)}")
@@ -115,13 +159,13 @@ def main():
         check(n <= GOAL_LIMIT, f"{k} is {n} form characters, limit {GOAL_LIMIT}")
 
     allowed = allowed_numbers()
-    for key in ("1", "2"):
+    for key in ("1", "2", "4"):
         bad = unsupported_numbers(sec.get(key, ""), allowed)
-        check(not bad, f"Section {key} has numbers not in any fixture: {bad}")
+        check(not bad, f"Section {key} has numbers not in any in-period fixture: {bad}")
 
     gap = sec.get("gap", "")
+    form_text = "\n".join(v for k, v in sec.items() if k != "gap")
     if case in ("normal", "four-goal"):
-        form_text = "\n".join(v for k, v in sec.items() if k != "gap")
         for name in ("Heron", "Kestrel"):
             check(name not in form_text, f"out-of-period item leaked into the form sections: {name}")
         src = next((l for l in draft.splitlines() if l.startswith("Source logs:")), "")
@@ -139,6 +183,10 @@ def main():
     if case == "paste":
         check("Curlew" in sec.get("1", ""), "pasted item (Curlew) missing from Section 1")
         check(re.search(r"past(e|ed)", gap, re.I) is not None, "gap analysis does not say the input was pasted")
+        past_work = "\n".join(sec.get(k, "") for k in ("1", "2", "4"))  # goals may cite GOALS.md projects
+        past_work = re.sub(r"\[[^\]]*\]", " ", past_work)  # "[add details for Project X]" prompts are fine
+        for name in ("Osprey", "Wren", "Plover", "Sandpiper", "Heron", "Kestrel"):
+            check(name not in past_work, f"paste case drew on the fixture logs: {name}")
 
 
 if __name__ == "__main__":

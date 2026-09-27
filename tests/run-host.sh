@@ -81,7 +81,12 @@ case "$host" in
     ;;
 esac
 
+cli_status=$?
 echo "scratch: $scratch"
+if [ "$cli_status" -ne 0 ] || [ ! -s "$log" ]; then
+  echo "FAIL: $host CLI exited $cli_status (log: $log)"
+  exit 1
+fi
 if [ "$expect_host" = --expect-host ]; then
   python3 "$repo/tests/check_output.py" "$case_name" "$scratch" "$log" --host "$host"
 else
