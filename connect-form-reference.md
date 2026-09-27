@@ -7,7 +7,7 @@ The form has two frames. All four sections are required.
 | Section | Char limit | Form guidance |
 |---|---|---|
 | 1. What results did you deliver, and how did you do it? | 6,000 | Include measurable outcomes, contributions to security, quality, and AI, and behaviors that demonstrate culture. |
-| 2. Reflect on recent setbacks — what did you learn and how did you apply a growth mindset? | 1,000 | Specific examples of setback(s), what you learned, how you improved. |
+| 2. Reflect on recent setbacks: what did you learn and how did you apply a growth mindset? | 1,000 | Specific examples of setback(s), what you learned, how you improved. |
 
 ## Plan for the future
 

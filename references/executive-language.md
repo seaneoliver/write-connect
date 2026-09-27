@@ -6,9 +6,9 @@ Replace these examples with phrases from your own work logs. The pattern is what
 
 | From (raw output language) | To (impact language) |
 |---|---|
-| "Created training video" | "Built reusable training materials distributed to the full champion network, enabling teams to unblock themselves without central escalation" |
-| "Resolved area path confusion" | "Prevented a multi-team cleanup from stalling by resolving guidance ambiguity that was blocking progress across the group" |
-| "Extended program to field teams" | "Scaled core program capabilities to field teams outside the home org, enabling them to self-serve on intake and prioritization" |
-| "Built approval SOP" | "Converted a verbal handoff into a documented SOP — turning a one-time transfer into a permanent onboarding asset" |
-| "Ran two program cycles" | "Operated two cycles simultaneously, triaging 30+ requests against current-period principles with zero schedule slips" |
-| "Completed data migration" | "Finalized the target-state migration with 30,000+ items moved — zero hygiene issues, recognized as the standout team across the org" |
+| "Created training video" | "Built a reusable training video that let new users onboard themselves, cutting repeat how-to questions to the team" |
+| "Answered questions about the new process" | "Cleared up confusion about the new process that was stalling three teams, so their rollout stayed on schedule" |
+| "Shared the tool with another team" | "Extended the tool to a second team, which now runs its own requests without waiting on us" |
+| "Wrote a handoff doc" | "Turned a one-time verbal handoff into a documented process, so the next owner can pick it up without shadowing anyone" |
+| "Ran two project cycles" | "Ran two cycles at once, prioritizing 30+ requests with no missed deadlines" |
+| "Finished the data migration" | "Completed the migration of 10,000+ records with no data-quality issues, ahead of the deadline" |

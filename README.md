@@ -1,6 +1,6 @@
 # write-connect
 
-Draft your Microsoft Connect performance review from weekly work logs — not from memory.
+Draft your Microsoft Connect performance review from weekly work logs - not from memory.
 
 ---
 
@@ -12,10 +12,10 @@ Draft your Microsoft Connect performance review from weekly work logs — not fr
 
 A single Markdown draft containing all four Connect sections, each already within its character limit:
 
-1. **Results** (6,000 chars) — What/How/Impact per initiative, grouped by goal bucket
-2. **Setbacks** (1,000 chars) — Name/Changed/Result structure
-3. **Goals** (1,200 chars each) — percentage-weighted, with validated measures
-4. **Culture Behaviors** (1,000 chars) — grounded in specific examples from your logs
+1. **Results** (6,000 chars) - What/How/Impact per initiative, grouped by goal bucket
+2. **Setbacks** (1,000 chars) - Name/Changed/Result structure
+3. **Goals** (1,200 chars each) - percentage-weighted, with validated measures
+4. **Culture Behaviors** (1,000 chars) - grounded in specific examples from your logs
 
 Plus a **gap analysis** flagging anything thin (missing security/quality/AI coverage, sections near their limit) so you know what to shore up before submitting.
 
@@ -24,10 +24,10 @@ Plus a **gap analysis** flagging anything thin (missing security/quality/AI cove
 ## Prerequisites
 
 1. Claude Code CLI installed (`npm install -g @anthropic-ai/claude-code`)
-2. Weekly work logs in a consistent folder and naming pattern (e.g., `Logs/YYYY-MM-DD Work.md`)
-3. A copy of a past Connect review (used as style and structure reference)
-4. A role summary or job description file (used for IC-level framing)
-5. A goals file covering the review period
+2. Weekly work logs, one Markdown file per week, in one folder, with the date in each filename (e.g., `Logs/2026-09-21 Work.md`). **They need the headings the skill reads**: `## Completed`, `## What I'm Working on`, and `## Questions/Risks/Blockers`. Start from [`templates/weekly-log-template.md`](templates/weekly-log-template.md). The more weeks of logs you have, the better the draft.
+3. A role summary or job description file (used for IC-level framing)
+4. A goals file covering the review period
+5. Optional: a past Connect review (used as a style and structure reference). If this is your first Connect, skip it.
 
 ---
 
@@ -37,38 +37,44 @@ Plus a **gap analysis** flagging anything thin (missing security/quality/AI cove
    ```bash
    git clone https://github.com/seaneoliver/write-connect ~/.claude/skills/write-connect
    ```
-2. Register the skill by adding it to your `.claude/settings.json` skills path (or place it directly in `~/.claude/skills/`).
-3. Fill in `USER-CONFIG.md` with your personal file paths and goal names (see [Configure it for yourself](#configure-it-for-yourself)).
-4. Update `log-parsing-rules.md` if your log folder path or file naming pattern differs from the default.
-5. Verify the skill is available: run `/skill-check write-connect` in a Claude Code session.
+   That folder location is all it takes to install it. There's nothing to register.
+2. Create your config from the template:
+   ```bash
+   cd ~/.claude/skills/write-connect && cp USER-CONFIG.example.md USER-CONFIG.md
+   ```
+3. Fill in `USER-CONFIG.md` with your file paths and goal names (see [Configure it for yourself](#configure-it-for-yourself)). Your copy is gitignored, so `git pull` updates won't touch it.
+4. Start a new Claude Code session and type `/skills`. You should see `write-connect` in the list.
 
 ---
 
 ## Setup for VS Code + Copilot
 
 1. Install the GitHub Copilot extension in VS Code.
-2. Copy this skill folder into your workspace or a shared location your Copilot session can access.
-3. Open `SKILL.md` and update the context file paths in Step 1 to match your local setup.
-4. Open a Copilot Chat panel, attach `SKILL.md` as context (`@workspace /SKILL.md`), and invoke with your review period.
+2. Copy this skill folder into your workspace, then copy `USER-CONFIG.example.md` to `USER-CONFIG.md` and fill it in.
+3. Open Copilot Chat in Agent mode so it can read files in your workspace.
+4. Attach `SKILL.md` as context (type `#file:SKILL.md`, or drag the file into the chat), and ask it to follow the steps for your review period.
 5. Copilot will walk through the steps; paste your work log contents when prompted if auto-discovery is not available.
 
 ---
 
 ## Configure it for yourself
 
-Fill in `USER-CONFIG.md` before your first run. The table below shows what you need:
+Fill in `USER-CONFIG.md` (copied from `USER-CONFIG.example.md`) before your first run. All paths are relative to the folder you open Claude Code in, not the skill folder. The table below shows what you need:
 
 | Question | Where it goes |
 |---|---|
 | Where are your work logs stored? | `log_folder` in USER-CONFIG |
-| What is your log file naming pattern? | `log_pattern` in USER-CONFIG |
-| Where is your most recent Connect review? | `past_review_path` in USER-CONFIG |
+| What is your log file naming pattern? Use `*` as the wildcard, e.g. `* Work.md` | `log_pattern` in USER-CONFIG |
+| Where is your most recent Connect review? (optional) | `past_review_path` in USER-CONFIG |
 | Where is your role summary or job description? | `role_summary_path` in USER-CONFIG |
 | Where is your goals file? | `goals_path` in USER-CONFIG |
-| What are your three goal bucket names? | `goal_1_title`, `goal_2_title`, `goal_3_title` in USER-CONFIG |
+| Do you have a voice or style guide? (optional) | `voice_notes_path` in USER-CONFIG |
+| What are your goal bucket names? | `goal_1_title` to `goal_3_title` (plus optional `goal_4_title`) in USER-CONFIG |
+| What is the compliance goal wording on your form? | `compliance_goal_text` in USER-CONFIG |
+| Any recurring feedback from your manager this cycle? (optional) | `manager_feedback_themes` in USER-CONFIG |
 | Where should the draft be saved? | `output_path` in USER-CONFIG |
 
-See `USER-CONFIG.md` for the full fill-in-the-blank template.
+See `USER-CONFIG.example.md` for the full fill-in-the-blank template.
 
 ---
 
@@ -76,7 +82,8 @@ See `USER-CONFIG.md` for the full fill-in-the-blank template.
 
 1. Open a Claude Code session in your vault or project directory.
 2. Type `/write-connect H2 FY26` (replace with your review period).
-3. Answer the three setup questions (review period, any org/role changes since last cycle, and any supplemental notes), then let the skill generate the full draft.
+3. Answer the setup questions (any org/role changes since last cycle, and any supplemental notes), then let the skill generate the full draft. It asks for the review period too if you didn't include one.
+4. Refine any section, then tell it to save. Expect one permission prompt the first time it runs Python to count characters.
 
 ---
 
@@ -84,9 +91,9 @@ See `USER-CONFIG.md` for the full fill-in-the-blank template.
 
 ```
 write-connect/
-├── SKILL.md                        # Entry point — orchestrates all steps
+├── SKILL.md                        # Entry point - orchestrates all steps
 ├── README.md                       # This file
-├── USER-CONFIG.md                  # Your personal configuration (fill in before use)
+├── USER-CONFIG.example.md          # Config template: copy to USER-CONFIG.md (gitignored) and fill in
 ├── connect-form-reference.md       # Section names, character limits, form guidance
 ├── extraction-rules.md             # Activity test, impact categories, coverage mapping
 ├── log-parsing-rules.md            # File discovery and section parsing rules
@@ -98,5 +105,6 @@ write-connect/
 │   ├── goal-buckets.md             # Maps work types to Connect goal buckets
 │   └── executive-language.md      # Translates output language to impact language
 └── templates/
-    └── output-template.md          # Assembly format and gap analysis structure
+    ├── output-template.md          # Assembly format and gap analysis structure
+    └── weekly-log-template.md      # Starting point for your weekly work logs
 ```

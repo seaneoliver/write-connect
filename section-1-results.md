@@ -1,4 +1,4 @@
-# Section 1 — Results (6,000 chars)
+# Section 1: Results (6,000 chars)
 
 ## Structure
 
@@ -20,13 +20,13 @@ Goal #2. [goal_2_title from USER-CONFIG]
 [Initiative title]
 What: [What you delivered]
 How: [How you executed, who you partnered with]
-Impact: [What changed — metric or credible proxy]
+Impact: [What changed - metric or credible proxy]
 
 Goal #3. [goal_3_title from USER-CONFIG]
 [Same What/How/Impact per initiative]
 
 How Impact Was Delivered
-[3-4 culture behaviors mapped to specific examples — embedded naturally, not labeled generically]
+[3-4 culture behaviors mapped to specific examples - embedded naturally, not labeled generically]
 ```
 
 ## Generation Rules
@@ -34,13 +34,13 @@ How Impact Was Delivered
 - Group work into themes, not a chronological log dump
 - Lead each initiative with What (the deliverable), then How (execution and partnerships), then Impact (outcome with evidence)
 - Impact must answer: What changed because you were here?
-- Use numbers where possible, words where necessary — hard metrics preferred, credible proxies acceptable
+- Use numbers where possible, words where necessary - hard metrics preferred, credible proxies acceptable
 - Demonstrate senior IC behaviors where present: brought solution + problem, not just problem identification
-- "How Impact Was Delivered" maps work to culture behaviors — do not use generic label sentences ("I demonstrated growth mindset by...")
+- "How Impact Was Delivered" maps work to culture behaviors - do not use generic label sentences ("I demonstrated growth mindset by...")
 - Must include at least one reference each to security, quality, and AI
 - BLUF logic: outcome first, supporting detail second
-- Voice: short sentences, no em dashes, no hedging, contractions throughout
-- Make it easy for your manager to advocate for you — if something isn't clearly articulated, it's harder to represent later
+- Voice: if `voice_notes_path` is set, follow it. Otherwise default to short sentences, plain words, no hedging, and outcome before activity
+- Make it easy for your manager to advocate for you - if something isn't clearly articulated, it's harder to represent later
 
 ## Character Budget Warning
 
@@ -49,7 +49,7 @@ The 6,000 char limit includes "How Impact Was Delivered." Budget ~700 chars for 
 **What/How/Impact label overhead:** Each initiative using explicit "What:", "How:", "Impact:" label prefixes adds ~19 chars of structural overhead. At 5+ initiatives, that's ~100-200 chars. When total is approaching 6,000:
 - Drop the "What:", "How:", "Impact:" label prefixes
 - Merge into flowing prose paragraphs: outcome first sentence, execution second, evidence third
-- Keep all proof points (numbers, quotes, results) — cut the labels, not the substance
+- Keep all proof points (numbers, quotes, results) - cut the labels, not the substance
 - This alone recovers 150-200 chars without losing any senior-IC evidence
 
 Never cut a non-negotiable proof point to save a label. Cut the label.

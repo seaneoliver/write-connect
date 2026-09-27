@@ -3,20 +3,20 @@
 ## Assembly Format
 
 ```
-# Connect Review Draft — [Review Period]
+# Connect Review Draft: [Review Period]
 Generated: [date]
 Source logs: [list of log files read, date range]
 
 ---
 
 ## Section 1: What results did you deliver, and how did you do it?
-Character count: [X] / 6,000 [⚠️ OVER LIMIT — see trim suggestions below] or [✓ Within limit]
+Character count: [X] / 6,000 [⚠️ OVER LIMIT - see trim suggestions below] or [✓ Within limit]
 
 [Draft]
 
 ---
 
-## Section 2: Reflect on recent setbacks — what did you learn and how did you apply a growth mindset?
+## Section 2: Reflect on recent setbacks: what did you learn and how did you apply a growth mindset?
 Character count: [X] / 1,000 [⚠️ OVER LIMIT] or [✓ Within limit]
 
 [Draft]
@@ -34,6 +34,10 @@ Character count: [X] / 1,200 [⚠️ OVER LIMIT] or [✓ Within limit]
 [Draft]
 
 ### Goal 3: [Title]
+Character count: [X] / 1,200 [⚠️ OVER LIMIT] or [✓ Within limit]
+[Draft]
+
+### Goal 4: [Title] (only if goal_4_title is set in USER-CONFIG)
 Character count: [X] / 1,200 [⚠️ OVER LIMIT] or [✓ Within limit]
 [Draft]
 
@@ -56,12 +60,15 @@ Character count: [X] / 1,000 [⚠️ OVER LIMIT] or [✓ Within limit]
 [List any weeks where ## Completed had fewer than 2 bullets]
 
 ### Sections over limit
-[For any section over limit: suggest specific cuts — redundant phrases, bullets that can be merged, detail that can be moved to "How Impact Was Delivered"]
+[For any section over limit: suggest specific cuts - redundant phrases, bullets that can be merged, detail that can be moved to "How Impact Was Delivered"]
+
+### Missing inputs
+[Any USER-CONFIG file that was blank or not found and was skipped, e.g. no past review]
 
 ### Missing requirements
 [Flag if security, quality, or AI are not addressed in Section 1]
 [Flag if Section 3 has no goal with a security reference]
 
 ### Themes in logs not captured
-[Any significant recurring workstream that didn't make it into the draft — user may want to add]
+[Any significant recurring workstream that didn't make it into the draft - user may want to add]
 ```

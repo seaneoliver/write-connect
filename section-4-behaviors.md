@@ -1,4 +1,4 @@
-# Section 4 — Culture Behaviors (1,000 chars)
+# Section 4: Culture Behaviors (1,000 chars)
 
 ## Required Behaviors
 
@@ -23,9 +23,9 @@ If your past review highlighted additional behaviors, add them here. Common exam
 
 - ~180-200 chars per behavior if using 5 behaviors (stay within 1,000 total)
 - **With 3 required behaviors, budget ~300 chars each.** Do not exceed this before counting.
-- Every behavior grounded in a specific example — no abstract claims
+- Every behavior grounded in a specific example - no abstract claims
 - Approach sentence first, example second
-- Avoid: "I demonstrated [behavior] by..." — embed the behavior, don't announce it
+- Avoid: "I demonstrated [behavior] by..." - embed the behavior, don't announce it
 - **Never end a behavior paragraph with "Demonstrated in [X, Y, Z]."** That pattern adds 70-90 chars per behavior as a footnote that reads like an audit trail, not a behavior. If specific examples are needed, embed them in the behavior sentence itself.
 - **Count characters before assembly.** If all three paragraphs plus two blank lines between them exceeds 950 raw chars (LF), trim before moving to Step 9.
 
